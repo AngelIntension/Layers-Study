@@ -3,7 +3,7 @@ using System;
 
 namespace AnemicDomainLayer
 {
-    public class StockService
+    public class StockService : IStockService
     {
         private readonly ProductContext context;
 
@@ -23,7 +23,7 @@ namespace AnemicDomainLayer
         public int RemoveStock(int productId, int amount)
         {
             var product = context.Products.Find(productId);
-            if(product.QuantityInStock < amount)
+            if (product.QuantityInStock < amount)
             {
                 throw new NotEnoughStockException(amountToRemove: amount, quantityInStock: product.QuantityInStock);
             }

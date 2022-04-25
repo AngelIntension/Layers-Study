@@ -13,9 +13,9 @@ namespace AnemicPresentationLayer
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDataLayer();
+            services.AddDomainLayer();
             services.AddControllers();
-            services.AddScoped<IProductService, ProductService>();
-            services.AddInMemoryDb();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -31,13 +31,23 @@ namespace AnemicPresentationLayer
             {
                 endpoints.MapControllers();
             });
-            app.SeedInMemoryDb();
+            app.SeedDataLayer();
         }
     }
 
-    internal static class InMemoryDatabaseModule
+    internal static class DomainLayerModule
     {
-        internal static IServiceCollection AddInMemoryDb(this IServiceCollection services)
+        internal static IServiceCollection AddDomainLayer(this IServiceCollection services)
+        {
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IStockService, StockService>();
+            return services;
+        }
+    }
+
+    internal static class DataLayerModule
+    {
+        internal static IServiceCollection AddDataLayer(this IServiceCollection services)
         {
             services.AddDbContext<ProductContext>(options => options
                 .UseInMemoryDatabase("AnemicProductContextMemoryDB")
@@ -46,7 +56,7 @@ namespace AnemicPresentationLayer
             return services;
         }
 
-        internal static IApplicationBuilder SeedInMemoryDb(this IApplicationBuilder app)
+        internal static IApplicationBuilder SeedDataLayer(this IApplicationBuilder app)
         {
             var serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
             using(var scope = serviceScopeFactory.CreateScope())
