@@ -2,7 +2,7 @@
 
 namespace RichDomainLayer
 {
-    public class StockService
+    public class StockService : IStockService
     {
         private ProductContext context;
 
