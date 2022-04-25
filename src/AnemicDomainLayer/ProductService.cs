@@ -6,7 +6,7 @@ namespace AnemicDomainLayer
 {
     public class ProductService
     {
-        private ProductContext context;
+        private readonly ProductContext context;
 
         public ProductService(ProductContext context)
         {
