@@ -2,6 +2,7 @@
 {
     public class Product
     {
+        public int Id { get; private set; }
         public string Name { get; private set; }
         public int QuantityInStock { get; private set; }
 
@@ -9,6 +10,12 @@
         {
             Name = name;
             QuantityInStock = quantityInStock;
+        }
+        
+        public Product(int id, string name, int quantityInStock)
+            : this(name, quantityInStock)
+        {
+            Id = id;
         }
 
         public void AddStock(int amount)
