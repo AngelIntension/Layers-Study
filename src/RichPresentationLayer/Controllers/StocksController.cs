@@ -50,17 +50,17 @@ namespace RichPresentationLayer.Controllers
                 QuantityInStock = quantityInStock;
             }
 
-            public int QuantityInStock { get; }
+            public int QuantityInStock { get; set; }
         }
 
         public class AddStocksCommand
         {
-            public int Amount { get; }
+            public int Amount { get; set; }
         }
 
         public class RemoveStocksCommand
         {
-            public int Amount { get; }
+            public int Amount { get; set; }
         }
     }
 }
